@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_flutter/constants/app_assets.dart';
 import 'package:habit_tracker_flutter/constants/app_colors.dart';
 import 'package:habit_tracker_flutter/persistence/hive_data_store.dart';
@@ -6,7 +7,6 @@ import 'package:habit_tracker_flutter/ui/home/home_page.dart';
 import 'package:habit_tracker_flutter/ui/theming/app_theme.dart';
 
 import 'models/task.dart';
-import 'models/task_preset.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,9 +22,14 @@ Future<void> main() async {
       Task.create(name: 'Play Sports', iconName: AppAssets.basketball),
       Task.create(name: 'Spend Time Outside', iconName: AppAssets.sun),
     ],
-    force: true,
+    force: false,
   );
-  runApp(MyApp());
+  runApp(ProviderScope(
+    overrides: [
+      dataStoreProvider.overrideWithValue(dataStore),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

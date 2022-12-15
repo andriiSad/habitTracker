@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -27,3 +28,7 @@ class HiveDataStore {
     return Hive.box<Task>(tasksBoxName).listenable();
   }
 }
+
+final dataStoreProvider = Provider<HiveDataStore>((ref) {
+  throw UnimplementedError();
+});
